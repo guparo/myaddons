@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Definimos la accion -->
+ 
+        <record model="ir.actions.act_window" id="condominium_list_action">
+            <field name="name">Unidad</field>
+            <field name="res_model">condominium.unidad</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Cree la primera Unidad</p>
+            </field>
+        </record>
+ 
+        <!-- menu superior o principal: no hereda de otro menu -->
+        <menuitem id="main_condominium_menu" name="Condominiums"/>
+ 
+        <!-- Definimos un menu de solo vista, este menu tiene como menu padre a Cursos -->
+        <menuitem id="condominium_menu" name="Condominium Management" parent="main_condominium_menu"/>
+        <!-- Definimos otro menu que tiene como menu padre a condominium_menu.-->
+        <menuitem id="action_menu" name="Condominium" parent="condominium_menu" action="condominium_list_action"/>
+ 
+    </data>
+</openerp>

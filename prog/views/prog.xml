@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+    <record model="ir.ui.view" id="prog.lenguajes_form">
+      <field name="name">prog.lenguajes.form</field>
+      <field name="model">prog.lenguajes</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Lenguajes">
+
+        <sheet>
+         <group string="Lenguajes de Programacion"> 
+            <field name="image" widget='image' />
+            <field name="name"/>
+
+          </group>
+     
+         </sheet>
+        </form>
+      </field>
+    </record>
+ 
+
+    <record model="ir.ui.view" id="prog_lenguajes_tree">
+      <field name="name">prog.lenguajes.tree</field>
+      <field name="model">prog.lenguajes</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Lenguajes">
+          <field name="name"/>
+          <field name="image"/>
+
+        </tree>
+      </field>
+    </record>
+
+
+
+
+        <!-- Definimos la accion -->
+         <record model="ir.actions.act_window" id="prog_list_action">
+            <field name="name">Lenguajes de Programacion</field>
+            <field name="res_model">prog.lenguajes</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Ingrese el primer lenguaje</p>
+            </field>
+        </record>
+
+
+
+ 
+        <!-- menu superior o principal: no hereda de otro menu -->
+  <menuitem id="main_prog_menu" name="Programacion"/>
+ 
+        <!-- Definimos un menu de solo vista, este menu tiene como menu padre a Cursos -->
+
+
+
+        <menuitem id="prog_lenguajes" name="Lenguajes" sequence="1" parent="main_prog_menu" />
+
+
+ 
+            <menuitem id="prog_lengua" name="Lengua" sequence="1" parent="prog_lenguajes" action="prog_list_action"/>
+  
+
+
+
+           
+    </data>
+</openerp>

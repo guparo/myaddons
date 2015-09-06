@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Siempre las lineas xml van a ir delimitados por la etiqueta openerp -->
+<openerp>
+  <!--Las etiquetas data tambien delimitan a las record siempre-->
+  <data> <!-- Toda la parte grafica del menu va dentro del la etiqueta <demo>...</demo> -->
+        <!--Contruimos la Vista lista - Tree View -->
+        <record model="ir.ui.view" id="view_demoa_tree">
+            <field name="name">demoa.tree</field>
+            <field name="model">demoa.demoa</field>
+            <field name="arch" type="xml">
+                <tree string="Listar de registro">
+                   <field name="name"/>
+                   <field name="last"/>
+                   <field name="fecha_nac"/>
+                   <field name="edad"/>
+                </tree>
+            </field>
+        </record>
+    <!-- Construimos la Vista formulario - Form View -->
+        <record model="ir.ui.view" id="view_demoa_form">
+            <field name="name">demoa.form</field>
+            <field name="model">demoa.demoa</field>
+            <field name="arch" type="xml">
+               <form string="Formulario Estudiante" version="7.0">
+                  <header>
+                    <field name="state" widget="statusbar" />
+                  </header> 
+                <sheet>
+                        <group>
+                                <field name="name"/>
+                                <field name="escuela_id"/> 
+                    
+                                <field name="last"/>
+                                <field name="fecha_nac"/>
+                                <field name="edad"/>
+                                <field name="active" />
+                        </group>
+                  </sheet>
+                </form>
+            </field>
+        </record>
+ 
+    <!-- Definimos una accion para disparar el formulario de demo, cuando hagamos clic en el munu "Demo"  -->
+    <record model="ir.actions.act_window" id="action_open_view_demoa_form">
+        <field name="name">Demoa</field>
+        <field name="res_model">demoa.demoa</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+   <!-- Definimos el nombre del menu padre para Demo, este ira en la parte superior de openerp -->
+        <menuitem name="Demoa" id="menu_demoa_form" action="action_open_view_demoa_form" sequence="15"/>
+ 
+  <!-- Lo siguiente es el menu hijo de Demo, que tambien se llama Demo -->
+          <menuitem name="Demoa" id="menu_demoa" parent="menu_demoa_form" sequence="2"/>
+ 
+  <!-- El siguiente menu "Lista demo", listara los registro guardados en la tabla "demo"  -->
+          <menuitem name="Lista demoa" id="listar_demoa" parent="menu_demoa" action="action_open_view_demoa_form" sequence="3"/>
+   <!--===================HERENCIA==============-->
+    <record id="inherit_respartner_demoa_id" model="ir.ui.view">
+        <field name="name">res.partner.inherit</field>
+        <field name= "model">res.partner</field>
+        <field name= "type">form</field>
+        <field name= "inherit_id" ref="base.view_partner_form" />
+        <field name= "arch" type= "xml">
+            <field name="customer" position="before" >
+              <field name="school" />
+            </field>
+        </field>
+    </record>        
+  </data>
+</openerp>

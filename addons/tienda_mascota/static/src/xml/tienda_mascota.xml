@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Es necesario definir este archivo-->
+<templates xml:space="preserve">
+    <!-- t-name: definimos el nombre del template(HomePageTemplate) que sera llamado en tienda_mascota/static/js/tienda_mascota.js-->
+    <t t-name="HomePageTemplate"> 
+        <div style="background-color: red;">Usando Qweb - primer div </div>
+        <div>
+
+<h3>Present Simple en inglés  tiene la estructura:</h3>
+
+<h2>[SUJETO] + [VERBO] (en infinitivo sin to)</h2>
+
+<h3>A tener en cuenta:
+
+Si el sujeto es 3ª persona del singular se le añade una "-s" al verbo.
+
+Veamos como ejemplo la conjugación del verbo "to live" (vivir) en presente simple:</h3>
+<img src="../tienda_mascota/images/gpr.png" alt="gpr" usemap="#gpr"/>
+
+             <h3>Ingrese su nombre: </h3><input type="text" t-att-value="name"/>
+    </div>
+    </t>
+</templates>

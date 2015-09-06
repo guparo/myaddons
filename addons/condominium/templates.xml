@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <record model="ir.ui.view" id="condominium_form">
+  
+      <field name="name">condominium.form</field>
+      <field name="model">condominium.unidad</field>
+
+
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="ficha" version="7.0">
+          <group string="Ficha del alumno">
+            <field name="image" widget='image' />
+            <field name="apellidosyn"/>
+            <field name="fecha"/>
+            <field name="email"/>
+          </group>
+          <group>
+            <field name="telf"/>
+            <field name="telffijo"/>
+            <field name="direccion"/>
+          </group>
+          <newline/>
+            <notebook colspan="3">
+              <page string="Título">
+                <group colspan="2" col="1">
+                  <field name="titulo" placeholder= "Titulo universitario..."/>
+                </group>
+              </page>
+              <page string="Becario">
+                <group colspan="2" col="1">
+                  <field name="becario" placeholder= "becario del mec...."/>
+                </group>
+              </page>
+              <page string="Idiomas">
+                <group colspan="2" col="1">
+                  <field name="idiomas" placeholder="Nivel de inglés, francés..."/>
+                </group>
+              </page>
+            </notebook>
+        </form>
+      </field>
+    </record>
+
+
+
+        <!-- Definimos la accion -->
+ 
+        <record model="ir.actions.act_window" id="condominium_list_action">
+            <field name="name">Unidad</field>
+            <field name="res_model">condominium.unidad</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Cree la primera Unidad</p>
+            </field>
+        </record>
+ 
+        <!-- menu superior o principal: no hereda de otro menu -->
+        <menuitem id="main_condominium_menu" name="Condominiums"/>
+ 
+        <!-- Definimos un menu de solo vista, este menu tiene como menu padre a Cursos -->
+        <menuitem id="condominium_menu" name="Condominium Management" parent="main_condominium_menu"/>
+        <!-- Definimos otro menu que tiene como menu padre a Curso academicos.-->
+        <menuitem id="action_menu" name="Condominium" parent="condominium_menu" action="condominium_list_action"/>
+ 
+    </data>
+</openerp>

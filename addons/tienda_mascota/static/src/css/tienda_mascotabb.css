@@ -1,0 +1,74 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+body {
+	background: #000; 
+}
+div#body1 {
+	width:1260px;
+	margin-left:auto;
+	margin-right:auto;
+}
+div#bodyContent {
+	width:880px;
+	margin-bottom:10px;
+	margin-left:auto;
+	margin-right:auto;
+	border:1px solid #d2871d;
+}
+
+img.banner {
+	width:880px;
+	border-bottom:1px solid #d2871d;
+}
+div.introduction {
+	width:880px;
+	borde:1px solid #d2871d;
+}
+h1.principal {
+	borde:1px solid #d2871d;
+	font-family:"Monotype Corsiva";
+	font-size:60px;
+	font-weight:bold;
+	color:#a25c1b;
+	text-align:center;
+	padding:20px 10px 20px 20px;
+
+}
+p.intro {
+	text-indent:60px;
+	borde:1px solid #d2871d;
+ 	color:#df9c29;
+ 	font-family:"Palatino Linotype";
+ 	font-size:25px;
+	line-height:30px;
+	padding:15px 15px 0 15px;
+}
+p.intro em {
+	color:#f8fb94;
+}
+
+h2 {
+	font-family:"Hoefler Text", Garamond, Times, serif;
+	font-size:40px;
+	color:#df9c29;
+	margin-top:15px;
+	padding:10px;
+	borde:1px solid #d2871d;
+}
+p {
+	text-indent:60px;
+	font-family:"Sylfaen";
+	font-size:20px;
+	line-height:25px;
+	color:#f8fb94;
+	margin-top:15px;
+	padding:15px;
+	borde:1px solid #d2871d;
+}
+p.primaLitera:first-letter{
+	font-family:"Monotype Corsiva";
+	font-size:48px;
+}
+

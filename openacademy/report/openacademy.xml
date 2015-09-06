@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="action_session_report"
+            name="session.report"
+            string="Session Report"
+            model="openacademy.session"
+            file="openacademy/report/session_report.mako"
+            report_type="webkit"
+            webkit_header="report_webkit.ir_header_webkit_basesample0"
+            auto="False"/>
+    </data>
+</openerp>

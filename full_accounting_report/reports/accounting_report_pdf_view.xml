@@ -1,0 +1,66 @@
+?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="full_accounting_report_pdf">
+    <t t-call="report.container">
+        <t t-call="report.external_layout">
+            <div class="page">
+            	<div class="oe_structure"/>
+            	<div class="page-header"/>
+            	<t t-foreach="get_periods(docs)" as ="p">
+            		<blockquote>
+            			<p>Period</p>
+            			  <footer><span t-esc="p"/></footer>
+               	</blockquote>
+               	<table class= "table table-atriped>"
+               			<tr>
+               				<td>Name</td>
+                   		<td>Date</td>
+               				<td>Reference</td>
+                   		<td>Parner</td>
+                   		<td>Account</td>
+                   		<td>Tax</td>
+               				<td>Analytic Account</td>
+                   		<td>Move</td>
+                			<td>Devit</td>
+                   		<td>Credit</td>
+               				<td>Currency</td>
+                   		<td>Journal</td>
+                   		<td>State</td>
+                   		<td>Product</td>
+               				<td>Quantity</td>
+                   		<td>Amount</td>
+                 		</tr>
+                		<t t-foreach="docs" as="o">
+                   			<t t-if="p == o.period_id.name">
+                   				<td><span t-field="o.name"/></td>
+                          <td><span t-field="o.date"/></td>
+                          <td><span t-field="o.reference"/></td>
+                          <td><span t-field="o.parner"/></td>
+                          <td><span t-field="o.account"/></td>
+                          <td><span t-field="o.tax"/></td>
+
+                          <td><span t-field="o.move"/></td>
+                          <td><span t-field="o.devit"/></td>
+                          <td><span t-field="o.credit"/></td>   
+                          <td><span t-field="o.currency"/></td>
+                          <td><span t-field="o.journal"/></td>
+                          <td><span t-field="o.state"/></td>
+                          <td><span t-field="o.product"/></td>
+                          <td><span t-field="o.quantity"/></td>
+                          <td><span t-field="o.amount"/></td>
+                                                  
+                        </t>
+                 		</t>
+               		</table>	
+            	</t>
+            </div>
+        </t>
+</template>
+
+
+
+
+
+
+                <h2>Inverted Analytic Balance - <span t-esc="res_company.currency_id.name"/></h2>

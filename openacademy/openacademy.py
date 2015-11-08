@@ -5,7 +5,9 @@
 
 from openerp.osv import fields, osv
 import time
-from openerp.datetime import datetime, timedelta
+#from openerp.datetime import datetime, timedelta
+import datetime
+from datetime import timedelta
 from tools.translate import _
 
 class Course(osv.Model):
@@ -19,9 +21,9 @@ class Course(osv.Model):
             string='Session'),
     }
 
-    _defaults = {
-        'responsible_id': lambda self, cr, uid, context: uid,
-    }
+ #   _defaults = {
+  #      'responsible_id': lambda self, cr, uid, context: uid,
+ #   }
 
     def _check_description(self, cr, uid, ids, context=None):
         for course in self.browse(cr, uid, ids, context):
@@ -91,11 +93,11 @@ class Session(osv.Model):
             string='State', required=True, readonly=True),
     }
 
-    _defaults = {
-        'active': True,
-        'state': 'draft',
-        'start_date': lambda self, cr, uid, context: time.strftime('%Y-%m-%d'),
-    }
+    #_defaults = {
+    #    'active': True,
+     #   'state': 'draft',
+    #    'start_date': lambda self, cr, uid, context: time.strftime('%Y-%m-%d'),
+    #}
 
     def onchange_seats(self, cr, uid, ids, seats, attendee_ids, context=None):
         # interpret the elements of attendee_ids to count them;

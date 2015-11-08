@@ -1,11 +1,12 @@
 {
-    # Theme information
-    'name': "Demoa",
+    'name': "Demo Student",
+    'version': '2.0',
     'description': """
+            Similar a OpenAcademy   Ponce
     """,
     'category': 'Theme',
-    'version': '2.0',
-    'depends': ['website', 'base'],
+ 
+    'depends': ['website', 'sale'],
 
     # templates, pages, and snippets
     'data': [

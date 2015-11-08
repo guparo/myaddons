@@ -23,18 +23,36 @@
             <field name="arch" type="xml">
                <form string="Formulario Estudiante" version="7.0">
                   <header>
+                    <button name="confirm" string="Confirmar" states="draft"     type="object"/>
+                    <button name="draft"   string="Borrador"  states="cancel"     type="object"/>
+                    <button name="cancel"  string="Cancelar"  states="draft,confirmed" type="object"/>
+
                     <field name="state" widget="statusbar" />
                   </header> 
                 <sheet>
-                        <group>
+                        <group col="4">
                                 <field name="name"/>
-                                <field name="escuela_id"/> 
-                    
                                 <field name="last"/>
+                                <field name="escuela_id" widget="selection"/>
+                                <!--domain="[('school','='True)]"/> -->
                                 <field name="fecha_nac"/>
                                 <field name="edad"/>
                                 <field name="active" />
+
                         </group>
+                        <notebook>
+                          <page string="Horario de Clases">
+    
+                    
+                               <field name="horario_ids">
+                                  <tree string="Horario de Clases" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="horario"/>
+                                  </tree>
+                               </field> 
+
+                          </page>
+                        </notebook>
                   </sheet>
                 </form>
             </field>
@@ -47,14 +65,14 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-   <!-- Definimos el nombre del menu padre para Demo, este ira en la parte superior de openerp -->
-        <menuitem name="Demoa" id="menu_demoa_form" action="action_open_view_demoa_form" sequence="15"/>
- 
+   <!-- Definimos el nombre del menu padre para Demo, este ira en la parte superior de openerp >-->
+        <menuitem name="Demo St" id="menu_demoa_1" />
   <!-- Lo siguiente es el menu hijo de Demo, que tambien se llama Demo -->
-          <menuitem name="Demoa" id="menu_demoa" parent="menu_demoa_form" sequence="2"/>
+        <menuitem name="Estudiantes" id="menu_demoa" parent="menu_demoa_1" sequence="2"/>
  
   <!-- El siguiente menu "Lista demo", listara los registro guardados en la tabla "demo"  -->
-          <menuitem name="Lista demoa" id="listar_demoa" parent="menu_demoa" action="action_open_view_demoa_form" sequence="3"/>
+        <menuitem name="Listado Estudiantes" id="listar_demoa" parent="menu_demoa" action="action_open_view_demoa_form" sequence="3"/>
+ 
    <!--===================HERENCIA==============-->
     <record id="inherit_respartner_demoa_id" model="ir.ui.view">
         <field name="name">res.partner.inherit</field>
@@ -62,7 +80,7 @@
         <field name= "type">form</field>
         <field name= "inherit_id" ref="base.view_partner_form" />
         <field name= "arch" type= "xml">
-            <field name="customer" position="before" >
+            <field name="customer" position="before" > <!--after/before/inside//replace -->
               <field name="school" />
             </field>
         </field>

@@ -19,6 +19,8 @@
 #
 ##############################################################################
 from openerp.osv import osv, fields
+from datetime import datetime
+#import decimal_precision as dp
 class english_tobeview(osv.osv):
   _name = 'english.tobeview'
   _description = 'To be images'
@@ -308,8 +310,20 @@ english_subject()
 
 
 
+class english_tablas(osv.osv):
+  _name = 'english.tablas'
+  _description = 'Tablas'
+  _rac_name='name'
+  _columns = {
+    'name': fields.char('Name', size=20, required=True),
+    'image': fields.binary("Image", help="Seleccionar imagen aqui"),
+  }
+  
+english_tablas()
+
 
 class english_ficha(osv.osv):
+
   _name = 'english.ficha'
   _description = 'Ficha'
   _rac_name='name'
@@ -325,22 +339,74 @@ class english_ficha(osv.osv):
     'titulo': fields.text('Título', required=False),
     'becario': fields.text('Becario', required=False),
     'idiomas': fields.text('Idiomas', required=False),
+    'fecha_nacimiento' :fields.date('Fecha-nac', required=False),
+    'edad': fields.integer('Edad',  required=False),
   }
-  
+  def on_change_fecha_nac(self, cr, uid, ids, fecha_nacimiento, context=None):
+    res = {}
+    if fecha_nacimiento:
+        edad = (datetime.now().date() - datetime.strptime(fecha_nacimiento, '%Y-%m-%d').date()).days / 365
+        if edad < 0:
+            edad = 0
+        res = {'edad': edad}
+    return {'value': res}
 english_ficha()
 
 
-class english_tablas(osv.osv):
-  _name = 'english.tablas'
-  _description = 'Tablas'
-  _rac_name='name'
+
+
+
+
+
+class english_calificaciones(osv.osv):
+
+  def _get_total(self, cr, uid, ids, field_name, arg, context=None):
+    result = {}
+    for rec in self.browse(cr,uid,ids,context=context):
+      result[rec.id]= rec.nota1 + rec.nota2
+    return result
+  def calcula_promedio(self, cr, uid, ids, field_name, arg, context=None):
+    result = {}
+    for rec in self.browse(cr,uid,ids,context=context):
+      result[rec.id]= (rec.nota1 + rec.nota2) / 2
+    return result
+
+  _name = 'english.calificaciones'
+  _description = 'Calificaciones'
   _columns = {
-    'name': fields.char('Name', size=20, required=True),
-    'image': fields.binary("Image", help="Seleccionar imagen aqui"),
+    'name_id': fields.many2one('english.asignaturas','name--id',help="obligado por one2many, no necesario aparezca en vista"),
+    'nombre':  fields.char('Apellido y Nombres', size=30, required=False),
+ 
+    'nota1': fields.float('Primer Examen ',  digits = (6,2),required=False),
+    'nota2': fields.float('Segundo Examen',  digits = (6,2),required=False),
+ #   'promedio': fields.float('Promedio', required=False),
+
+    'promedio': fields.function(calcula_promedio, method=True, type='float', string='Promedio', store=True),
+#    'total': fields.float('Total', required=False), 
+    'total': fields.function(_get_total, method=True, type='float', string='Total', store=True),     
+
 
   }
-  
-english_tablas()
+ 
+  def onchange_notas(self, cr, uid, ids, nota1,nota2, context=None):
+      if not context:
+        context={}
+      value = {}
+      domain = {}
+      count = 0
+      if nota1 != 0:
+          count += 1
+      if nota2 != 0:
+          count += 1  
+      if count > 0:
+          value['promedio'] = (nota1 + nota2) / count
+      else:
+          value['promedio'] = 100
+      value['total'] = nota1 + nota2
+      return{'value':value, 'domain':domain}
+ 
+
+english_calificaciones()
 
 class english_asignaturas(osv.osv):
   _name = 'english.asignaturas'
@@ -349,24 +415,8 @@ class english_asignaturas(osv.osv):
     'nombre': fields.char('nombre de la asignatura', size=400, required=True),
     'profesor': fields.char('Profesor', required=False),
     'creditos': fields.char('Créditos', size=200, required=False),
-    'notas_ids': fields.one2many('english.calificaciones','name_id','Notas'),
- #   'estudiante_ids': fields.one2many('usuario.estudiante', 'materia_id', 'Estudiante')
+    'notas_ids': fields.one2many('english.calificaciones','name_id','Alumnos'),
+ 
   }
   
 english_asignaturas()
-
-
-class english_calificaciones(osv.osv):
-  _name = 'english.calificaciones'
-  _description = 'Calificaciones'
-  _columns = {
-    'name_id': fields.many2one('english.asignaturas','name--id',help="obligado por one2many, no necesario aparezca en vista"),
-    'nombre':  fields.char('Nombre', size=400, required=False),
-    'nota': fields.char('nota', required=False),
-  }
-  
-english_calificaciones()
-
-
-
-

@@ -933,6 +933,13 @@ unusual.</td>
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record id="libreta_list_action" model="ir.actions.act_window">
+      <field name="name">Ficha</field>
+      <field name="res_model">english.ficha</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
 
     <record model="ir.ui.view" id="english_adverbs_tree">
       <field name="name">english.adverbs.tree</field>
@@ -985,7 +992,8 @@ unusual.</td>
            <menuitem id="subject" name="Subject" parent="english_confi" action="subject_list_action"/> 
            <menuitem id="verbs" name="Verb Form" parent="english_confi" action="verbs_list_action"/>
            
-           <menuitem id="asignaturas" name="Asi" parent="english_confi" action="asignaturas_list_action" />
+           <menuitem id="libreta" name="Asignaturas" parent="english_confi" action="asignaturas_list_action" />
+           <menuitem id="ficha" name="Ficha"     parent="english_confi" action="libreta_list_action" />
           <menuitem id="tablas" name="Tablas" parent="english_confi" action="tablas_list_action" />
  
 
@@ -995,17 +1003,19 @@ unusual.</td>
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="asignaturas">
+                    <sheet>
           <group string="Asignaturas">
             <field name="nombre"/>
             <field name="profesor"/>
             <field name="creditos"/>
           </group>
           <newline/>
-          <group  string="Alumnos" colspan="2" col="1">
-  
+ <!--         <group  string="Alumnos" colspan="2" col="1">-->
+          <group  colspan="2" col="1"> 
             <field name="notas_ids"/>
   
           </group>
+                    </sheet>
         </form>
       </field>
     </record>
@@ -1031,7 +1041,14 @@ unusual.</td>
       <field name="arch" type="xml">
         <tree string="calificaciones" editable="bottom">
           <field name="nombre"/>
-          <field name="nota"/>
+
+
+            <field name="nota1" on_change="onchange_notas(nota1,nota2)"/>
+            <field name="nota2" on_change="onchange_notas(nota2,nota1)"/>
+
+       
+            <field name="promedio" readonly="True"/>
+            <field name="total" readonly="True"/>          
         </tree>
       </field>
     </record>
@@ -1042,11 +1059,42 @@ unusual.</td>
       <field name="arch" type="xml">
         <form string="calificaciones">
             <field name="nombre"/>
-            <field name="nota"/>
+ 
+            <field name="nota1" on_change="onchange_notas(nota1)"/>
+            <field name="nota2" on_change="onchange_notas(nota2)"/>
+         
+            <field name="promedio" readonly="True"/>
+            <field name="total" readonly="True"/>
         </form>
       </field>
     </record>
+    <record model="ir.ui.view" id="english_ficha_form">
+      <field name="name">english.ficha.form</field>
+      <field name="model">english.ficha</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Ficha">
 
+          <group string="Ficha del alumno">
+            <field name="image" widget='image' />
+            <field name="name"/>
+            <field name="fecha"/>
+            <field name="email"/>
+          </group>
+          <group>
+
+<field name="fecha_nacimiento" string="Fecha de nacimiento" on_change="on_change_fecha_nac(fecha_nacimiento)"/>
+<field name="edad" string="Edad" readonly="True"/>
+
+
+          </group>
+
+
+
+
+        </form>
+      </field>
+    </record>
            
     </data>
 </openerp>
